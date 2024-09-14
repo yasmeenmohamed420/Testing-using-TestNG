@@ -2,8 +2,6 @@ package Page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 
 public class ZamzamPage extends PageBase
 {
@@ -33,7 +31,7 @@ public class ZamzamPage extends PageBase
     private By buttonChange = By.cssSelector("span[class=\"flatpickr-next-month\"] svg");
     private By finalSearch = By.cssSelector("span[class=\"content\"]");
     private By hotal = By.cssSelector("span[data-hotelname=\"Al Noor Hotel\"]");
-//    private By checkAvailability = By.id("");
+    private By checkAvailability = By.cssSelector("button[style=\"padding: 5px 10px;\"] span:nth-child(1)");
     private By errorMessage = By.cssSelector("h5[class=\"pt-3 pb-3\"]");
     //Method
     public void exitButton()
@@ -118,11 +116,11 @@ public class ZamzamPage extends PageBase
         click(hotal);
     }
 
-//    public void checkAvailability()
-//    {
-//        click(checkAvailability);
-//    }
-//
+    public void availabilityBotton()
+    {
+        click(checkAvailability);
+    }
+
     public String getMessage()
     {
         return  readData(errorMessage);
