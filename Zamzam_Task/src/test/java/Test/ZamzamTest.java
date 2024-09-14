@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.devtools.v85.page.Page;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -18,8 +19,10 @@ public class ZamzamTest extends TestBase
     ZamzamPage page;
     SoftAssert soft = new SoftAssert();
     WebDriverWait wait;
+
     @Test
-    public void TC1() throws InterruptedException {
+    public void TC1() throws InterruptedException
+    {
         reportTest = report.createTest("Zamzam Task");
         page = new ZamzamPage(driver);
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -30,6 +33,7 @@ public class ZamzamTest extends TestBase
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", footer);
         Thread.sleep(15000);
 //        page.exitButton();
+
         page.FBLink();
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
@@ -37,6 +41,7 @@ public class ZamzamTest extends TestBase
         soft.assertTrue(driver.getCurrentUrl().contains("zamzam"), "Facebook URL does not contain 'zamzam'");
         Thread.sleep(2000);
         driver.close();
+
         driver.switchTo().window(tabs.get(0));
         Thread.sleep(5000);
         soft.assertEquals(driver.getCurrentUrl(),"https://zamzam.com/");
@@ -47,6 +52,7 @@ public class ZamzamTest extends TestBase
         soft.assertTrue(driver.getCurrentUrl().contains("zamzam"), "Twitter URL does not contain 'zamzam'");
         Thread.sleep(2000);
         driver.close();
+
         driver.switchTo().window(tabs.get(0));
         soft.assertEquals(driver.getCurrentUrl(),"https://zamzam.com/");
         page.instgramLink();
@@ -56,6 +62,7 @@ public class ZamzamTest extends TestBase
         soft.assertTrue(driver.getCurrentUrl().contains("zamzam"), "Instagram URL does not contain 'zamzam'");
         Thread.sleep(2000);
         driver.close();
+
         driver.switchTo().window(tabs.get(0));
         soft.assertEquals(driver.getCurrentUrl(),"https://zamzam.com/");
         page.LinkedInLink();
@@ -65,6 +72,7 @@ public class ZamzamTest extends TestBase
         soft.assertTrue(driver.getCurrentUrl().contains("zamzam"), "LinkedIn URL does not contain 'zamzam'");
         Thread.sleep(2000);
         driver.close();
+
         driver.switchTo().window(tabs.get(0));
         soft.assertEquals(driver.getCurrentUrl(),"https://zamzam.com/");
         page.youtubeLink();
@@ -74,6 +82,7 @@ public class ZamzamTest extends TestBase
         ////soft.assertTrue(driver.getCurrentUrl().contains("zamzam"), "YouTube URL does not contain 'zamzam'");
         Thread.sleep(2000);
         driver.close();
+
         driver.switchTo().window(tabs.get(0));
         soft.assertEquals(driver.getCurrentUrl(),"https://zamzam.com/");
         //Scroll up
@@ -88,16 +97,25 @@ public class ZamzamTest extends TestBase
         page.nOfRoom();
         page.choiceRoom();
         page.Datalable();
+
         for(int i=0;i<=10;i++)
         {
             page.buttonChange();
         }
+
+
         page.selectOne();
         page.selectten();
         page.finalSearch();
         page.hotal();
-//        page.checkAvailability();
-//        page.printErrorMessage();
+
+        //for reach the element
+        WebElement checkAvailability = driver.findElement(By.cssSelector("button[style=\"padding: 5px 10px;\"] span:nth-child(1)"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(checkAvailability).perform();
+
+        System.out.println(page.getMessage());
+
         soft.assertAll();
     }
 

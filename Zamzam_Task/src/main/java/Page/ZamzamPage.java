@@ -33,8 +33,8 @@ public class ZamzamPage extends PageBase
     private By buttonChange = By.cssSelector("span[class=\"flatpickr-next-month\"] svg");
     private By finalSearch = By.cssSelector("span[class=\"content\"]");
     private By hotal = By.cssSelector("span[data-hotelname=\"Al Noor Hotel\"]");
-    //private By checkAvailability = By.id("");
-    //private By errorMessage = By.cssSelector("h5[class=\"pt-3 pb-3\"]");
+//    private By checkAvailability = By.id("");
+    private By errorMessage = By.cssSelector("h5[class=\"pt-3 pb-3\"]");
     //Method
     public void exitButton()
     {
@@ -123,8 +123,8 @@ public class ZamzamPage extends PageBase
 //        click(checkAvailability);
 //    }
 //
-//    public void printErrorMessage()
-//    {
-//        System.out.println(errorMessage);
-//    }
+    public String getMessage()
+    {
+        return  readData(errorMessage);
+    }
 }
