@@ -27,8 +27,9 @@ public class BasePage
         element.click();
     }
 
-    public void write(By locator , String text){
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    public void write(By locator , String text)
+    {
+        wait = new WebDriverWait(driver, Duration.ofSeconds(2000));
         WebElement element = driver.findElement(locator);
         element.clear();
         element.sendKeys(text);
