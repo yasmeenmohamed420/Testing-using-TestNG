@@ -52,7 +52,7 @@ public class BaseTest
 
     @AfterTest
     public void after() throws InterruptedException {
-        //  soft.assertAll();
+//          soft.assertAll();
 //        Thread.sleep(2000);
 //        driver.quit();
     }

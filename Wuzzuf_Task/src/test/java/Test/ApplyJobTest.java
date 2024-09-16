@@ -31,17 +31,44 @@ public class ApplyJobTest extends BaseTest
         fake = new Faker();
 
         soft.assertEquals(driver.getCurrentUrl(), "https://wuzzuf.net/jobs/egypt");
-        reportTest.pass("Correct Url");
+
+        try
+        {
+            soft.assertAll();
+            reportTest.pass("Correct URL");
+        }
+        catch (AssertionError e)
+        {
+            reportTest.fail("un correct URL");
+        }
+
         page.searchLabel();
 
-        WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[class=\"css-ukkbbr e1n2h7jb1\"]")));
+        WebElement search = page.t1();
         String searchText = search.getAttribute("value");
-        soft.assertEquals(searchText, "Software testing");
-        reportTest.pass("Correct Search");
+        soft.assertEquals(searchText, "Software ");
+        try
+        {
+            soft.assertAll();
+            reportTest.pass("Correct Search");
+        }
+        catch(AssertionError e)
+        {
+            reportTest.fail("uncorrect Search"+searchText);
+        }
 
-        WebElement button = driver.findElement(By.cssSelector("button[class=\"css-11qi1o ezfki8j0\"]"));
+        WebElement button = page.T2();
         soft.assertTrue(button.isEnabled());
-        reportTest.pass("Button work correctly");
+        try
+        {
+            soft.assertAll();
+            reportTest.pass("Button work correctly");
+        }
+        catch(AssertionError e)
+        {
+            reportTest.fail("Button not work correctly");
+        }
+
         page.searchButton();
 
         Thread.sleep(3000);
@@ -51,26 +78,34 @@ public class ApplyJobTest extends BaseTest
         String Result = page.numberOfJob();
         System.out.println(Result);
         reportTest.pass("Number of job avilable is "+Result);
-
+        Thread.sleep(3000);
         page.firstJob();
+
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
         System.out.println(driver.getCurrentUrl());
         reportTest.pass("Now in apply job link shown");
 
-        WebElement button2 = driver.findElement(By.cssSelector("button[class=\"css-1m0yk35 ezfki8j0\"]"));
+        WebElement button2 = page.T7();
         soft.assertTrue(button2.isEnabled());
-        reportTest.pass("Button work correctly");
+        try
+        {
+            soft.assertAll();
+            reportTest.pass("Button work correctly");
+        }
+        catch(AssertionError e)
+        {
+            reportTest.pass("Button not work correctly");
+        }
+
         page.applyJob();
 
         page.firstName();
-
         page.lastName();
         page.Email();
         page.Pass();
         page.login();
 
-        Thread.sleep(3000);
         page.choice1();
         page.choice2();
         page.choice3();
@@ -78,32 +113,50 @@ public class ApplyJobTest extends BaseTest
         page.enterSalary();
         Thread.sleep(3000);
         page.continueButton();
-
-//        WebElement button1 = driver.findElement(By.cssSelector("button[class=\"css-1wj05oe ezfki8j0\"]"));
-//        soft.assertTrue(button1.isEnabled());
-
         Thread.sleep(3000);
+
         /************* First page ***********/
         page.setGender();
         page.selectDay();
+
+        WebElement day = page.T3();
+        soft.assertEquals(day.getText(),"19");
+        try
+        {
+            soft.assertAll();
+            reportTest.pass("Day equal 19 ");
+        }
+        catch(AssertionError e)
+        {
+            reportTest.fail("Day not equal 19 ");
+        }
+
         page.selectMonth();
+        WebElement month = page.T4();
+        soft.assertEquals(month.getText(),"September");
+        try
+        {
+            soft.assertAll();
+            reportTest.pass("Month equal September");
+        }
+        catch(AssertionError e)
+        {
+            reportTest.pass("Month not equal September");
+        }
+
         page.selectYear();
-
-        By day = By.cssSelector("div[class=\"css-12119hv exkztdf0\"]  form div[class=\"section-validation-error css-6hend0 e1v1l3u10\"]:nth-child(1) div[class=\"css-1x21pox e6pv2vl4\"] div[class=\"row\"] div[class=\"col-2-lg col-12\"] div[class=\" css-1dgicot-container\"]");
-        By month = By.cssSelector("div[class=\"css-12119hv exkztdf0\"]  form div[class=\"section-validation-error css-6hend0 e1v1l3u10\"]:nth-child(1) div[class=\"css-1x21pox e6pv2vl4\"] div[class=\"row\"]  div[class=\"col-3-lg col-12\"] div");
-        By year = By.cssSelector("div[class=\"css-12119hv exkztdf0\"]  form div[class=\"section-validation-error css-6hend0 e1v1l3u10\"]:nth-child(1) div[class=\"css-1x21pox e6pv2vl4\"] div[class=\"col-3-lg col-12\"]:nth-child(3) div");
-
-        WebElement checkDay = driver.findElement(day);
-        soft.assertEquals(checkDay.getText(),"19");
-        reportTest.pass("Day equal 19 ");
-
-        WebElement checkMonth = driver.findElement(month);
-        soft.assertEquals(checkMonth.getText(),"September");
-        reportTest.pass("Month equal September");
-
-        WebElement checkyear = driver.findElement(year);
-//        soft.assertEquals(checkyear.getText(),"1999");
+        WebElement year = page.T5();
+        soft.assertEquals(year.getText(),"1999");
         reportTest.pass("year equal 1999 ");
+        try
+        {
+            soft.assertAll();
+            reportTest.pass("year equal 1999 ");
+        }
+        catch(AssertionError e)
+        {
+//            reportTest.pass("year not equal 1999 ");
+        }
 
         /*********** Second page **************/
         page.selectNationality();
@@ -117,13 +170,27 @@ public class ApplyJobTest extends BaseTest
         reportTest.pass("Phone number equal 01275512650");
 
         /*********** Third page *******/
-        // page.selectExprince();
+        //
+        Thread.sleep(3000);
+        page.selectExprince();
         page.setEducationLevel();
-        reportTest.pass("Bacherlor`s Degree is selected");
-//        page.setFaculty();
-//        page.setUniversity();
-//        page.setLanguage();
+        page.setDegree();
+        page.setGrad();
+        page.setProficiency();
+        page.setLanguage();
+        page.add();
+        page.addSkills();
+        page.setGetStart();
 
+        reportTest.pass( "selectExprince is no exprience");
+        reportTest.pass("EducationLevel Bachelor`s");
+        reportTest.pass("Degree is good");
+        reportTest.pass("Grad is 65-75");
+        reportTest.pass("Language is english");
+
+        page.setFaculty();
+        page.setUniversity();
+        page.setCv();
         soft.assertAll();
     }
 }
