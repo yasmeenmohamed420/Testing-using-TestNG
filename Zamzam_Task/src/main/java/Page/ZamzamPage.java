@@ -12,7 +12,7 @@ public class ZamzamPage extends PageBase
     }
 
     //Locator
-    private By exitButton = By.id("linkLeadCaptureClose");
+    private By exitButton = By.cssSelector("button[id=\"linkLeadCaptureClose\"]");
     private By FBLocator = By.cssSelector("a[href=\"https://www.facebook.com/zamzamtrips\"]");
     private By TWLocator = By.id("linkTwitter");
     private By LinkedInLocator = By.id ("linkLinkedin");
